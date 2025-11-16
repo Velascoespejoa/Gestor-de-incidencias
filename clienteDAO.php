@@ -13,7 +13,7 @@
         /**
          * Muestra todos los clientes
          */
-        public function listarClientes(){
+        public function listarClientes(): array{
 
             $sql = "SELECT * FROM clientes";
             $consulta = $this->conexion->query($sql);
@@ -26,10 +26,30 @@
             return $clientes;
 
         }
+
+        /**
+         * funcion para buscar en la BBDD por id
+         */
+        public function buscarPorId(int $id){
+            
+            $sql = "SELECT * FROM clientes WHERE id = :id";
+            $consulta = $this->conexion->prepare($sql);
+            $consulta->bindParam("id",$id);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+            if(!$resultado){
+                return null;
+            }
+
+            return new Cliente($resultado["id"],$resultado["nombre"],$resultado["correo"],$resultado["telefono"]);
+        }
+
         /**
          * funcion para buscar en la BBDD utilizando correo
          */
         public function buscarPorCorreo(string $correo): ?Cliente{
+            
             $sql = "SELECT * from clientes WHERE correo = :correo";
             $consulta = $this->conexion->prepare($sql);
             $consulta->bindParam(":correo",$correo);

@@ -6,6 +6,7 @@
          * Atributos
          */
         private int $id;
+        private int $clienteId;
         private string $dispositivo;
         private string $problema;
         private string $fechaIngreso;
@@ -16,9 +17,10 @@
         /**
          * Constructor
          */
-        public function __construct(int $id,string $dispositivo,string $problema,string $estado){
+        public function __construct(int $id,int $clienteId,string $dispositivo,string $problema,string $estado){
            
             $this->id = $id;
+            $this->clienteId = $clienteId;
             $this->dispositivo = $dispositivo;
             $this->problema = $problema;
             $this->estado = $estado;
@@ -29,6 +31,7 @@
          * Getters
          */
         public function getId() : int { return $this->id; }
+        public function getClienteId() : int { return $this->clienteId; }
         public function getDispositivo() : string { return $this->dispositivo; }
         public function getProblema() : string { return $this->problema; }
         public function getFechaIngreso() : string { return $this->fechaIngreso; }

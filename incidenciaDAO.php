@@ -12,7 +12,40 @@
             $this->conexion = Database::conectarBaseDatos();
         }
 
-        public function listarIncidenciasActivas(){
+        public function compruebaIncidencia(string $nombre , string $correo , int $tlf , string $incidencia , string $estado , string $dispositivo){
+            
+            $sql = "SELECT i.id 
+                    FROM incidencias i
+                    JOIN clientes c ON i.cliente_id = c.id
+                    WHERE c.nombre = :nombre
+                    AND c.correo = :correo
+                    AND c.telefono = :tlf
+                    AND i.problema = :incidencia
+                    AND i.estado = :estado
+                    AND i.dispositivo = :dispositivo";
+
+            $consulta = $this->conexion->prepare($sql);
+            $consulta->bindParam(":nombre",$nombre,PDO::PARAM_STR);
+            $consulta->bindParam(":correo",$correo,PDO::PARAM_STR);
+            $consulta->bindParam(":tlf",$tlf,PDO::PARAM_INT);
+            $consulta->bindParam(":incidencia",$incidencia,PDO::PARAM_STR);
+            $consulta->bindParam(":estado",$estado,PDO::PARAM_STR);
+            $consulta->bindParam(":dispositivo",$dispositivo,PDO::PARAM_STR);  
+            $consulta->execute();
+            
+            $existe = $consulta->fetch(PDO::FETCH_ASSOC);
+
+            if ($existe) {
+                // Sí existe
+                return true;
+            } else {
+                // No existe
+                return false;
+            }
+
+        }
+
+        public function listarIncidenciasActivas(): array{
 
             $sql = "SELECT * FROM incidencias WHERE estado != 'finalizado' LIMIT 20";
             $consulta = $this->conexion->query($sql);
@@ -21,6 +54,7 @@
             foreach ($resultado as $incidencia) {
                 $incidencias[] = new incidencia(
                     $incidencia["id"],
+                    $incidencia["cliente_id"],
                     $incidencia["dispositivo"],
                     $incidencia["problema"],
                     $incidencia["estado"]
@@ -30,7 +64,7 @@
 
         }
 
-        public function listarTodasIncidencias(){
+        public function listarTodasIncidencias():array{
             
             $sql = "SELECT * FROM incidencias";
             $setencia = $this->conexion->query($sql);
@@ -39,6 +73,7 @@
             foreach ($resultado as $incidencia) {
                 $incidencias[] = new incidencia(
                     $incidencia["id"],
+                    $incidencia["cliente_id"],
                     $incidencia["dispositivo"],
                     $incidencia["problema"],
                     $incidencia["estado"]
@@ -49,7 +84,7 @@
         /**
          * funcion sin terminar
          */
-        public function crearIncidencia($nombre,$correo,$tlf,$incidencia,$estado,$tipoDispositivo,$obversaciones=null){
+        public function crearIncidencia(string $nombre, string $correo,int $tlf, string $incidencia, string $estado,string $tipoDispositivo,$obversaciones=null){
 
             $clienteDao = new clienteDAO();
             $cliente = $clienteDao->buscarPorCorreo($correo);
