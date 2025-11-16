@@ -10,6 +10,9 @@
             $this->conexion = Database::conectarBaseDatos();
         }
 
+        /**
+         * Muestra todos los clientes
+         */
         public function listarClientes(){
 
             $sql = "SELECT * FROM clientes";
@@ -23,7 +26,9 @@
             return $clientes;
 
         }
-
+        /**
+         * funcion para buscar en la BBDD utilizando correo
+         */
         public function buscarPorCorreo(string $correo){
             $sql = "SELECT * from clientes WHERE correo = ?";
             $consulta = $this->conexion->prepare($sql);
@@ -34,6 +39,9 @@
             return new Cliente($resultado["id"],$resultado["nombre"],$resultado["correo"],$resultado["telefono"]);
         }
 
+        /**
+         * Crear un nuevo cliente en la BBDD
+         */
         public function crearCliente(string $nombre,string $correo,int $tlf){
             
             $sql = "INSERT INTO clientes (nombre, correo, telefono)

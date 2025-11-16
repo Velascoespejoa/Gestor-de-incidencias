@@ -31,6 +31,9 @@
 
         public function crearIncidencia($incidencia){
 
+            //buscar si existe usuario
+            //si no existe crearlo
+
             $sql = "INSERT INTO incidencias";
         }
     }
