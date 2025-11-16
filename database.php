@@ -23,7 +23,7 @@
                 /**
                  * Falta manejar excepciones con posibles errlres de conexion
                  */
-                return self::$conexion;             
+                            
             }
             return self::$conexion;  
         }

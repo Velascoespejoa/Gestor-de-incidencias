@@ -16,12 +16,11 @@
         /**
          * Constructor
          */
-        public function __construct(int $id,string $dispositivo,string $problema,string $fechaIngreso,string $estado){
+        public function __construct(int $id,string $dispositivo,string $problema,string $estado){
            
             $this->id = $id;
             $this->dispositivo = $dispositivo;
             $this->problema = $problema;
-            $this->fechaIngreso = $fechaIngreso;
             $this->estado = $estado;
 
         }

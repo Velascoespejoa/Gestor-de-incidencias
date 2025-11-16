@@ -29,12 +29,33 @@
         /**
          * funcion para buscar en la BBDD utilizando correo
          */
-        public function buscarPorCorreo(string $correo){
-            $sql = "SELECT * from clientes WHERE correo = ?";
+        public function buscarPorCorreo(string $correo): ?Cliente{
+            $sql = "SELECT * from clientes WHERE correo = :correo";
             $consulta = $this->conexion->prepare($sql);
-            $consulta->bindParam("s",$correo);
+            $consulta->bindParam(":correo",$correo);
             $consulta->execute();
-            $resultado = $consulta->fetchAll();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+            if(!$resultado){
+                return null;
+            }
+
+            return new Cliente($resultado["id"],$resultado["nombre"],$resultado["correo"],$resultado["telefono"]);
+        }
+
+         /**
+         * funcion para buscar en la BBDD utilizando telefono
+         */
+        public function buscarPorTlf(int $tlf): ?Cliente{
+            $sql = "SELECT * from clientes WHERE telefono = :telefono";
+            $consulta = $this->conexion->prepare($sql);
+            $consulta->bindParam(":telefono",$tlf,PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+            if(!$resultado){
+                return null;
+            }
 
             return new Cliente($resultado["id"],$resultado["nombre"],$resultado["correo"],$resultado["telefono"]);
         }
