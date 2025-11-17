@@ -20,11 +20,9 @@
             $resultado = $consulta->fetchAll();
             $clientes = [];
             foreach ($resultado as $cliente) {
-                $clientes[] = new Cliente($cliente["id"],$cliente["nombre"],$cliente["correo"],$cliente["telefono"]);
-                
+                $clientes[] = new Cliente($cliente["id"],$cliente["nombre"],$cliente["correo"],$cliente["telefono"]);                
             }
             return $clientes;
-
         }
 
         /**
@@ -36,12 +34,12 @@
             $consulta = $this->conexion->prepare($sql);
             $consulta->bindParam("id",$id);
             $consulta->execute();
+
             $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
 
             if(!$resultado){
                 return null;
             }
-
             return new Cliente($resultado["id"],$resultado["nombre"],$resultado["correo"],$resultado["telefono"]);
         }
 
@@ -54,12 +52,12 @@
             $consulta = $this->conexion->prepare($sql);
             $consulta->bindParam(":correo",$correo);
             $consulta->execute();
+
             $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
 
             if(!$resultado){
                 return null;
             }
-
             return new Cliente($resultado["id"],$resultado["nombre"],$resultado["correo"],$resultado["telefono"]);
         }
 
@@ -71,12 +69,12 @@
             $consulta = $this->conexion->prepare($sql);
             $consulta->bindParam(":telefono",$tlf,PDO::PARAM_INT);
             $consulta->execute();
+
             $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
 
             if(!$resultado){
                 return null;
             }
-
             return new Cliente($resultado["id"],$resultado["nombre"],$resultado["correo"],$resultado["telefono"]);
         }
 

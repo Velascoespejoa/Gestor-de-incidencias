@@ -11,8 +11,10 @@
         public function __construct(){
             $this->conexion = Database::conectarBaseDatos();
         }
-
-        public function compruebaIncidencia(string $nombre , string $correo , int $tlf , string $incidencia , string $estado , string $dispositivo){
+        /**
+         * funcion que comprueba que exista una incidencia igual antes de crearla
+         */
+        public function compruebaIncidencia(string $nombre , string $correo , int $tlf , string $incidencia , string $estado , string $dispositivo) : bool{
             
             $sql = "SELECT i.id 
                     FROM incidencias i
@@ -25,6 +27,7 @@
                     AND i.dispositivo = :dispositivo";
 
             $consulta = $this->conexion->prepare($sql);
+            
             $consulta->bindParam(":nombre",$nombre,PDO::PARAM_STR);
             $consulta->bindParam(":correo",$correo,PDO::PARAM_STR);
             $consulta->bindParam(":tlf",$tlf,PDO::PARAM_INT);
@@ -42,7 +45,6 @@
                 // No existe
                 return false;
             }
-
         }
 
         public function listarIncidenciasActivas(): array{
@@ -61,7 +63,6 @@
                 );
             }
             return $incidencias;
-
         }
 
         public function listarTodasIncidencias():array{
@@ -102,10 +103,7 @@
             $consulta->bindParam(":problema",$incidencia,PDO::PARAM_STR);
             $consulta->bindParam(":estado",$estado,PDO::PARAM_STR);
             $consulta->bindParam(":observaciones",$obversaciones,PDO::PARAM_STR);
-            $consulta->execute();
-
-            
-
+            $consulta->execute();          
 
         }
     }

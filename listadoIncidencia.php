@@ -7,6 +7,7 @@
     $incidenciaDao = new incidenciaDAO;
     $clienteDao = new clienteDAO;
 
+    
     if(isset($_POST["correo"]) && isset($_POST["tlf"])){
         $repetido = $incidenciaDao->compruebaIncidencia($_POST["nombre"],$_POST["correo"],$_POST["tlf"],$_POST["incidencia"],$_POST["estado"],$_POST["dispositivo"]);
         if($repetido == false){

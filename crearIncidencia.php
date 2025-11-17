@@ -28,6 +28,7 @@
             text-align: center;
             margin-left: 36.6%;
             padding: 2%;
+            
         }
         h1{
             text-align: center;
@@ -67,7 +68,7 @@
 
                 <label for="tlf" >Teléfono</label>
                 <input type="text" name="tlf" required>
-            </fieldset><br>
+            </fieldset>
             <fieldset>
                 <legend>Incidencia</legend>
 

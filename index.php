@@ -66,7 +66,7 @@
 
                 <label for="tlf" >Teléfono</label>
                 <input type="text" name="tlf" required>
-            </fieldset><br>
+            </fieldset>
             <fieldset>
                 <legend>Incidencia</legend>
 
