@@ -12,18 +12,19 @@
         private string $fechaIngreso;
         private string $fechaTerminado = "";
         private string $estado;
-        private string $observaciones = "";
+        private string $observaciones;
         
         /**
          * Constructor
          */
-        public function __construct(int $id,int $clienteId,string $dispositivo,string $problema,string $estado){
+        public function __construct(int $id,int $clienteId,string $dispositivo,string $problema,string $estado , string $observaciones = ""){
            
             $this->id = $id;
             $this->clienteId = $clienteId;
             $this->dispositivo = $dispositivo;
             $this->problema = $problema;
             $this->estado = $estado;
+            $this->observaciones = $observaciones;
 
         }
         

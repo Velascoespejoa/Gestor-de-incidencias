@@ -59,7 +59,8 @@
                     $incidencia["cliente_id"],
                     $incidencia["dispositivo"],
                     $incidencia["problema"],
-                    $incidencia["estado"]
+                    $incidencia["estado"],
+                    $incidencia["observaciones"]
                 );
             }
             return $incidencias;
@@ -85,7 +86,7 @@
         /**
          * funcion sin terminar
          */
-        public function crearIncidencia(string $nombre, string $correo,int $tlf, string $incidencia, string $estado,string $tipoDispositivo,$obversaciones=null){
+        public function crearIncidencia(string $nombre, string $correo,int $tlf, string $incidencia, string $estado,string $tipoDispositivo,string $obversaciones=""){
 
             $clienteDao = new clienteDAO();
             $cliente = $clienteDao->buscarPorCorreo($correo);

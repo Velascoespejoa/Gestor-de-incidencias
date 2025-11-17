@@ -1,0 +1,28 @@
+tbody tr:nth-child(odd){
+    background-color: #f2f2f2; 
+}
+
+tbody tr:nth-child(even){
+    background-color: #ffffff; 
+}
+td , th , tr{
+    border: 1px solid black;
+    padding: 30px;                        
+}
+th{
+    font-size: large;
+}
+table{
+    
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 5%;
+    margin-left: 10%;  
+
+}
+.ultimo{
+
+    background-color: white;
+    border: none;
+
+}

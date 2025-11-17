@@ -2,12 +2,13 @@
 
 <?php 
 
+    /**requires de los DAO que vamos a utilizar */
     require_once("clienteDAO.php");
     require_once("incidenciaDAO.php");
     $incidenciaDao = new incidenciaDAO;
     $clienteDao = new clienteDAO;
 
-    
+    // con este if-else evitamos que se repita la creacion de una incidencia igual  
     if(isset($_POST["correo"]) && isset($_POST["tlf"])){
         $repetido = $incidenciaDao->compruebaIncidencia($_POST["nombre"],$_POST["correo"],$_POST["tlf"],$_POST["incidencia"],$_POST["estado"],$_POST["dispositivo"]);
         if($repetido == false){
@@ -18,12 +19,55 @@
     }
     else{
        
-        $incidencias = $incidenciaDao->listarIncidenciasActivas();
+        $incidencias = $incidenciaDao->listarIncidenciasActivas();?>
 
-        foreach ($incidencias as $incidencia) {
-            $cliente = $clienteDao->buscarPorId($incidencia->getClienteId());
-            echo $incidencia->getDispositivo() ." ".  $incidencia->getProblema() . " " . $incidencia->getEstado() . " " . $cliente->getNombre() . " " . $cliente->getCorreo() . "<br>";
-        }
+        <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <link rel="stylesheet" href="estilos/listadoIncidencia.css">
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+            </head>
+            <body>
+                <table>
+                    <tr>
+                        <th>Incidencia</th>
+                        <th>Estado</th>
+                        <th>Tipo de dispositivo</th>
+                        <th>observaciones</th>
+                        <th>nombre</th>
+                        <th>correo</th>
+                        <th>telefono</th>
+                        <th class="ultimo"></th>
+                    </tr>
+                    <?php                     
+                   
+                    foreach ($incidencias as $incidencia):
+                        $cliente = $clienteDao->buscarPorId($incidencia->getClienteID())                      
+                    ?>                    
+                        <tr>
+                            <td><?=  $incidencia->getProblema(); ?></td>
+                            <td><?=  $incidencia->getEstado(); ?></td>
+                            <td><?=  $incidencia->getDispositivo(); ?></td>
+                            <td><?=  $incidencia->getObservaciones(); ?></td>
+                            <td><?=  $cliente->getNombre(); ?></td>
+                            <td><?=  $cliente->getCorreo(); ?></td>
+                            <td><?=  $cliente->getTelefono(); ?></td>
+                            <td class="ultimo"><button type="button" value = "<?= $incidencia->getId(); ?>">editar</button></td>
+                        </tr>
+                                              
+                    
+                    <?php endforeach;
+                    
+                    ?>                  
+                </table>
+            </body>
+            </html>
+    
+    <?php
     }
 ?>
+
+
 
