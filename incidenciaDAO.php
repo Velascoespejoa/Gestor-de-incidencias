@@ -66,6 +66,10 @@
             return $incidencias;
         }
 
+        public function listarIncidenciaPorIdCliente($id){
+
+        }
+
         public function listarTodasIncidencias():array{
             
             $sql = "SELECT * FROM incidencias";

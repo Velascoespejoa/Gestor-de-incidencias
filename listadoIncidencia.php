@@ -30,6 +30,7 @@
                 <title>Document</title>
             </head>
             <body>
+                
                 <table>
                     <tr>
                         <th>Incidencia</th>

@@ -3,7 +3,7 @@ tbody tr:nth-child(odd){
 }
 
 tbody tr:nth-child(even){
-    background-color: #ffffff; 
+    background-color: lightcyan; 
 }
 td , th , tr{
     border: 1px solid black;
@@ -24,5 +24,10 @@ table{
 
     background-color: white;
     border: none;
+
+}
+body{
+    font-family: Verdana;
+    background-color: lightyellow;
 
 }
