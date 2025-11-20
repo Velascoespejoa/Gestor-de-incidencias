@@ -30,7 +30,8 @@
                 <title>Document</title>
             </head>
             <body>
-                
+            <form action="editarIncidencia.php" method="post">
+
                 <table>
                     <tr>
                         <th>Incidencia</th>
@@ -55,7 +56,7 @@
                             <td><?=  $cliente->getNombre(); ?></td>
                             <td><?=  $cliente->getCorreo(); ?></td>
                             <td><?=  $cliente->getTelefono(); ?></td>
-                            <td class="ultimo"><button type="button" value = "<?= $incidencia->getId(); ?>">editar</button></td>
+                            <td class="ultimo"><button type="submit" name="submit" value ="<?= $incidencia->getId(); ?>">editar</button></td>
                         </tr>
                                               
                     
@@ -63,6 +64,7 @@
                     
                     ?>                  
                 </table>
+                </form>
             </body>
             </html>
     

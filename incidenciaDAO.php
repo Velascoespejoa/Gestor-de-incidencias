@@ -46,6 +46,23 @@
                 return false;
             }
         }
+        public function devuelveIncidenciaPorId(int $id) : incidencia{
+            $sql = "SELECT * FROM incidencias WHERE id = :id";
+            $consulta = $this->conexion->prepare($sql);
+            $consulta->bindParam("id",$id,PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+            $incidencia = new incidencia(
+                $resultado["id"],
+                $resultado["cliente_id"],
+                $resultado["dispositivo"],
+                $resultado["problema"],
+                $resultado["estado"],
+                $resultado["observaciones"]
+
+            );
+            return $incidencia;
+        }
 
         public function listarIncidenciasActivas(): array{
 
